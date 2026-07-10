@@ -41,4 +41,9 @@ def text_node_to_html_node(text_node: TextNode) -> LeafNode:
         case _:
             raise ValueError(f"Unsupported TextType: {text_node.text_type}")
         
-def text_to_textnodes(text):
+def text_to_textnodes(text: str) -> list[TextNode]:
+    result = []
+    string_to_node = TextNode(text, TextType.TEXT)
+    first = split_nodes_delimiter(string_to_node)
+    result.append(first)
+    return result

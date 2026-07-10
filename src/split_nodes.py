@@ -6,7 +6,7 @@ from extract_markdown_images import extract_markdown_images, extract_markdown_li
 def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: TextType) -> list[TextNode]:
     new_nodes = []
     for node in old_nodes:
-        if node.text_type != text_type.TEXT:
+        if node.text_type != TextType.TEXT:
             new_nodes.append(node)
             continue
         elif node.text.count(delimiter) == 0:
@@ -66,3 +66,12 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
         if remaining_text != '':
             new_nodes.append(TextNode(remaining_text, TextType.TEXT))
     return new_nodes
+
+def text_to_textnodes(text: str) -> list[TextNode]:
+    string_to_node = [TextNode(text, TextType.TEXT)]
+    first = split_nodes_delimiter(string_to_node, '**', TextType.BOLD)
+    second = split_nodes_delimiter(first, "_", TextType.ITALIC)
+    third = split_nodes_delimiter(second, "`", TextType.CODE)
+    fourth = split_nodes_image(third)
+    result = split_nodes_link(fourth)
+    return result
