@@ -1,5 +1,3 @@
-
-from itertools import count
 from textnode import TextNode, TextType
 from extract_markdown_images import extract_markdown_images, extract_markdown_links
 
@@ -13,7 +11,7 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
             new_nodes.append(node)
             continue
         elif node.text.count(delimiter) % 2 != 0:
-            raise ValueError(f"Delimiters in'{node.text}' are not balanced.")
+            raise ValueError(f"Delimiters in '{node.text}' are not balanced.")
         else:
             parts = node.text.split(delimiter)
             for i, part in enumerate(parts):

@@ -1,6 +1,7 @@
 import unittest
 from extract_markdown_images import extract_markdown_images, extract_markdown_links
 from split_nodes import TextNode, TextType, split_nodes_image, split_nodes_link, text_to_textnodes
+import blocks
 
 class TestExtractMarkdownImages(unittest.TestCase):
     def test_extract_markdown_images(self):
@@ -97,5 +98,28 @@ class TestTextNodesConverter(unittest.TestCase):
                 TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
                 TextNode(" and a ", TextType.TEXT),
                 TextNode("link", TextType.LINK, "https://boot.dev")
+            ], matches
+        )
+
+class TestBlocks(unittest.TestCase):
+    def test_markdown_to_blocks(self):
+        matches = blocks.markdown_to_blocks(
+            """
+This is **bolded** paragraph   
+
+This is another paragraph with _italic_ text and `code` here
+This is the same paragraph on a new line
+
+
+
+- This is a list
+- with items
+            """
+        )
+        self.assertEqual(
+            [
+                "This is **bolded** paragraph",
+                "This is another paragraph with _italic_ text and `code` here\nThis is the same paragraph on a new line",
+                "- This is a list\n- with items",
             ], matches
         )
