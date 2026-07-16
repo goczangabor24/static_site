@@ -1,4 +1,4 @@
-# from textnode_creator import TextNode, TextType
+# from textnode import TextNode, TextType
 from copy_static import copy_files_recursive
 import os
 import shutil

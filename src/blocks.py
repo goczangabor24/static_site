@@ -1,7 +1,7 @@
 from enum import Enum
 from htmlnode import *
 from split_nodes import text_to_textnodes
-from textnode_creator import text_node_to_html_node, TextNode, TextType
+from textnode import text_node_to_html_node, TextNode, TextType
 
 def markdown_to_blocks(markdown: str) -> list[str]:
     result = []
